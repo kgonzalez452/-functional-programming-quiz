@@ -11,40 +11,47 @@ const array = [{
     {
         name: 'Bubble Buddy',
         hourlyRate: 8.50,
-        hoursWorked: 28
+        hoursWorked: 78
     }
 ]
 
-class PayRoll {
-    constructor(array) {
-        this.array = array
-        this.getNames = this.getNames(this.array)
-        this.getFulltime = this.getFulltime(this.array)
-        this.getTotalLabor = this.getTotalLabor(this.array)
+class Payroll {
+    constructor(workers) {
+        this.workers = workers
+        this.names = this.getNames(this.workers)
+        this.fulltime = this.getFulltime(this.workers)
+        this.totalLabor = this.getTotalLabor(this.workers)
 
     }
-    getNames(array) {
+    getNames(workers) {
+        const newarray = workers.map(function(emp){
+            return emp.name
+        })
+        // console.log(newarray)
+        return newarray.sort()
+
         // let arr = new array.sort()
-        return array.map((arr) => {
-            // return arr.sort()
-        })
+        // return array.map((arr) => {
+        // })
     }
-    getFulltime(array) {
-        return array.filter(function (hourlyRate) {
-            return (array.hourlyRate > 60) ? 1 : 0
+    getFulltime(workers) {
+        return workers.filter(function (hourlyRate) {
+            return (array.hoursWorked >= 60) ? 1 : 0
         })
 
     }
-    getTotalLabor(array) {
-        return array.reduce((acc, cur, index) => {
-            return acc + array.hoursWorked * array.hourlyRate 
+    getTotalLabor(workers) {
+        return workers.reduce((acc, cur, index) => {
+            return acc + (cur.hourlyRate * cur.hoursWorked)
+
+            }, 0)
             // return (acc + hoursWorked * hourlyRate) ? 1 : 0
-        })
+        
     }
 }
 
-let payout = new PayRoll(array)
+let payout = new Payroll(array)
 
-console.log(payout.getNames)
-console.log(payout.getTotalLabor)
-console.log(payout.getFulltime)
+console.log(payout.names)
+console.log(payout.fulltime)
+console.log(payout.totalLabor)
